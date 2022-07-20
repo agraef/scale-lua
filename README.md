@@ -44,9 +44,9 @@ The GPL can also be read online at <http://www.gnu.org/licenses/>.
 The scale program uses various 3rd party software for its GUI and numerical algorithms. You'll need:
 
 -   [Lua](https://www.lua.org/)
--   [Octave](http://www.octave.org/)
--   [Tcl/Tk](http://www.tcl.tk/) and [Gnocl](https://dr-baum.net/gnocl/)
--   [VTK](http://www.vtk.org/)
+-   [Octave](https://www.octave.org/)
+-   [Tcl/Tk](https://www.tcl.tk/) and [Gnocl](https://dr-baum.net/gnocl/)
+-   [VTK](https://www.vtk.org/)
 
 You'll need fairly recent versions of all these. Lua 5.4, Octave 6.4, Tcl/Tk 8.6 (+ Gnocl 0.9.96) and VTK 6.3 have been tested and are known to work on Linux.
 
