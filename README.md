@@ -4,7 +4,7 @@ Albert Graef <aggraef@gmail.com>
 
 July 2022
 
-This is the Lua version of the Scale program. This program was first written around 2010 in the author's Pure programming language. However, the Pure version has since suffered from some hard to resolve incompatibilities with VTK, the 3D rendering toolkit used by the program. Hence the port to a different language environment which doesn't have these issues. The Lua port aims for 100% compatibility with the Pure version. The graphical user interface, the functionality, and the file format are all virtually identical. The port is still in its infancy, though, so it needs further testing and may still contain some bugs. It's also a bit slower (mainly at startup) than the Pure version, but not much.
+This is the Lua version of the Scale program. This program was first written around 2010 in the author's Pure programming language. However, the Pure version has since suffered from some hard to resolve incompatibilities with VTK, the 3D rendering toolkit used by the program. Hence the port to a different language environment which doesn't have these issues. The Lua port aims for 100% compatibility with the Pure version. The graphical user interface, the functionality, and the file format are all virtually identical. The port is still new, though, it needs further testing and may still have bugs.
 
 Why Lua? I enjoy programming in Lua. I think that it's a nifty little language with a good design and pretty syntax, very capable, yet easy to learn. It also has a light-weight runtime and is readily available on many platforms, which lets you get up and running quickly.
 
@@ -43,14 +43,16 @@ The GPL can also be read online at <http://www.gnu.org/licenses/>.
 
 The scale program uses various 3rd party software for its GUI and numerical algorithms. You'll need:
 
--   [Lua](https://www.lua.org/), along with [lua-tk](https://github.com/agraef/lua-tk) and [lua-octave](https://github.com/agraef/lua-octave)
+-   [Lua](https://www.lua.org/)
 -   [Octave](http://www.octave.org/)
 -   [Tcl/Tk](http://www.tcl.tk/) and [Gnocl](https://dr-baum.net/gnocl/)
 -   [VTK](http://www.vtk.org/)
 
 You'll need fairly recent versions of all these. Lua 5.4, Octave 6.4, Tcl/Tk 8.6 (+ Gnocl 0.9.96) and VTK 6.3 have been tested and are known to work on Linux.
 
-**Important:** Make sure to use a version of VTK which *includes the VTK Tcl bindings.* As far as I can tell, these are available with VTK versions up to 6.3. Later VTK versions have the Tcl bindings in a custom "wish" shell instead of proper Tcl packages, which makes them all but unusable in Lua.
+**Important:** Make sure to use a version of VTK which *includes the VTK Tcl bindings.* As far as I can tell, these are available with VTK versions up to [6.3](https://vtk.org/files/release/6.3/VTK-6.3.0.tar.gz). Later VTK versions have the Tcl bindings in a custom "wish" shell instead of proper Tcl packages, which makes them all but unusable in Lua.
+
+The program also requires Lua bindings to Tcl/Tk and Octave to work. Since I couldn't find anything suitable in the archives, I ported over the corresponding Pure modules. You can find these as [lua-tk](https://github.com/agraef/lua-tk) and [lua-octave](https://github.com/agraef/lua-octave) on GitHub. They can be installed as a [luarocks](https://luarocks.org/) module, or with `make && sudo make install`. Please check the README files on GitHub for details.
 
 Currently the program is only known to work on Linux. Porting to other platforms won't be a piece of cake, but is certainly doable. Ready-made binaries for Lua, Tcl/Tk, VTK, and Octave exist on a variety of platforms, but getting these to work together nicely might be a challenge on some systems like Mac and Windows. (At the very least, you'll have to port lua-tk and lua-octave, and get hold of suitable builds of Gnocl and VTK for your platform.) If you do, please let us know.
 
