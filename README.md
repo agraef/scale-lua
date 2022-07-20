@@ -4,7 +4,9 @@ Albert Graef <aggraef@gmail.com>
 
 July 2022
 
-This is the Lua version of the Scale program. This program was first written around 2010 in the author's Pure programming language. The present Lua port is still in its infancy, so it needs further testing and may still contain some bugs. But it's presumably easier to get up and running, since Lua is a light-weight package and should be readily available on most platforms. The port runs somewhat slower than the Pure original, which is no big surprise as Lua gets interpreted while Pure is a JIT-compiled language. But it should offer the same functionality under the same GUI, and also maintain compatibility with Scala files written by the Pure version.
+This is the Lua version of the Scale program. This program was first written around 2010 in the author's Pure programming language. However, the Pure version has since suffered from some hard to resolve incompatibilities with VTK, the 3D rendering toolkit used by the program. Hence the port to a different language environment which doesn't have these issues. The Lua port aims for 100% compatibility with the Pure version. The graphical user interface, the functionality, and the file format are all virtually identical. The port is still in its infancy, though, so it needs further testing and may still contain some bugs. It's also a bit slower (mainly at startup) than the Pure version, but not much.
+
+Why Lua? I enjoy programming in Lua. I think that it's a nifty little language with a good design and pretty syntax, very capable, yet easy to learn. It also has a light-weight runtime and is readily available on many platforms, which lets you get up and running quickly.
 
 ## Introduction
 
