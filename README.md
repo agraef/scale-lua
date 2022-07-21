@@ -1,12 +1,18 @@
+---
+title: Scale - Visualizing and Rationalizing Musical Scales
+---
+
 # Scale - Visualizing and Rationalizing Musical Scales
 
 Albert Graef <aggraef@gmail.com>
 
 July 2022
 
-This is the Lua version of the Scale program. This program was first written around 2010 in the author's Pure programming language. However, the Pure version has since suffered from some hard to resolve incompatibilities with VTK, the 3D rendering toolkit used by the program. Hence the port to a different language environment which doesn't have these issues. The Lua port aims for 100% compatibility with the Pure version. The graphical user interface, the functionality, and the file format are all virtually identical. The port is still new, though, it needs further testing and may still have bugs.
+This is the Lua version of the Scale program. This program was first written around 2010 in the author's Pure programming language. However, the Pure version has since suffered from a crashing bug which affects applications using 3D rendering (as Scale does). Hence the port to a different language environment which doesn't have these issues. The Lua port aims for 100% compatibility with the Pure version. The graphical user interface, the functionality, and the file format are all virtually identical. The port is still new, though, it needs further testing and may still have bugs.
 
 Why Lua? I enjoy programming in Lua. I think that it's a nifty little language with a good design and pretty syntax, very capable, yet easy to learn. It also has a light-weight runtime and is readily available on many platforms, which lets you get up and running quickly.
+
+![The Scale program](scale.png)
 
 ## Introduction
 
@@ -25,14 +31,9 @@ As it turns out, the resulting notion of *harmonic distance* is actually a metri
 
 Copyright (c) 2010-2022 by Albert Gräf, all rights reserved.
 
-The scale program is free software: you can redistribute it and/or
-modify it under the terms of the GNU General Public License as published
-by the Free Software Foundation, either version 3 of the License, or (at
-your option) any later version.
+The scale program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-The scale program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+The scale program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 Please see the accompanying COPYING file for the precise license terms.
 The GPL can also be read online at <http://www.gnu.org/licenses/>.
@@ -57,7 +58,7 @@ The program also requires Lua bindings to Tcl/Tk and Octave to work. Since I cou
 Currently the program is only known to work on Linux. Porting to other platforms won't be a piece of cake, but is certainly doable. Ready-made binaries for Lua, Tcl/Tk, VTK, and Octave exist on a variety of platforms, but getting these to work together nicely might be a challenge on some systems like Mac and Windows. (At the very least, you'll have to port lua-tk and lua-octave, and get hold of suitable builds of Gnocl and VTK for your platform.) If you do, please let us know.
 
 ## Installation
- 
+
 There is no need to install this program, you can just run it from the source directory as `lua scale.lua` or `./scale.lua`, or use `ln -s` to create a symlink to `scale.lua` in some directory on your path, in order to run it from anywhere.
 
 For a system-wide install, you can run the usual `sudo make install`, which will put the script and data files under `/usr/local/share/scale`, and create a link to the `scale.lua` script named `/usr/local/bin/scale`, so that you can launch the program by just typing `scale`. The default installation prefix `/usr/local` can also be adjusted as needed by setting the `prefix` variable in the Makefile accordingly. To uninstall the program at a later time, just type `sudo make uninstall`.
