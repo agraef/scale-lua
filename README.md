@@ -49,9 +49,7 @@ The scale program uses various 3rd party software for its GUI and numerical algo
 -   [Tcl/Tk](https://www.tcl.tk/) and [Gnocl](https://dr-baum.net/gnocl/)
 -   [VTK](https://www.vtk.org/)
 
-You'll need fairly recent versions of all these. Lua 5.4, Octave 6.4, Tcl/Tk 8.6 (+ Gnocl 0.9.96) and VTK 6.3 have been tested and are known to work on Linux.
-
-**Important:** Make sure to use a version of VTK which *includes the VTK Tcl bindings.* As far as I can tell, these are available with VTK versions up to [6.3](https://vtk.org/files/release/6.3/VTK-6.3.0.tar.gz). Later VTK versions have the Tcl bindings in a custom "wish" shell instead of proper Tcl packages, which makes them all but unusable in Lua.
+Except for VTK, you'll need fairly recent versions of all these. Lua 5.4, Octave 6.4, and Tcl/Tk 8.6 (+ Gnocl 0.9.96) have been tested and are known to work on Linux. For VTK I recommend using the older [VTK 6.3](https://vtk.org/files/release/6.3/VTK-6.3.0.tar.gz) version, which still includes the VTK Tcl wrapper. This wrapper is essential to use VTK in custom Tcl applications. You might have luck with newer VTK versions up to version 8.1 (as far as I can tell, this is the latest version which includes the Tcl wrapper), but 6.3 is the newest version that I could get to build on modern Linux systems without too much hassle; your mileage may vary.
 
 The program also requires Lua bindings to Tcl/Tk and Octave to work. Since I couldn't find anything suitable in the archives, I ported over the corresponding Pure modules. You can find these as [lua-tk](https://github.com/agraef/lua-tk) and [lua-octave](https://github.com/agraef/lua-octave) on GitHub. They can be installed as a [luarocks](https://luarocks.org/) module, or with `make && sudo make install`. Please check the README files on GitHub for details.
 
