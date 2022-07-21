@@ -9,8 +9,8 @@ prefix = /usr/local
 bindir = $(prefix)/bin
 datadir = $(prefix)/share/scale
 
-DISTFILES = COPYING Makefile README.md scale.html scale.png scale.lua \
-lib/* scl/*.scl
+DISTFILES = COPYING Makefile README.md scale.html scale.pdf scale.png \
+scale.lua lib/* scl/*.scl
 
 all:
 
