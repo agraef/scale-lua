@@ -16,8 +16,50 @@ wm withdraw .
 
 # Create a color map for the edge weights.
 vtkLookupTable cmap
+# default is colors ranging from blue (low) to red (high harmonic distance)
 cmap SetHueRange 0.62 0.05
 cmap Build
+
+# Greyscale map for monochrome themes.
+proc greyscale_map {} {
+    set ncolors [cmap GetNumberOfTableValues]
+    for {set i 0} {$i < $ncolors} {incr i} {
+	set x [expr 0.5 * $i / $ncolors + 0.25]
+	cmap SetTableValue $i $x $x $x 1.0
+    }
+}
+
+# Simplistic way to set a color theme. We only supply a single color theme for
+# now (which is the default), as well as dark (white on black) and light
+# (black on white) monochrome themes. The color map for the edges is adjusted
+# accordingly. In addition, there's a "black" theme which is identical to
+# "dark" except that it keeps the color map in color.
+if [expr ![info exists theme]] {set theme "color"}
+
+if {$theme == "black"} {
+    set bg_col {0 0 0}
+    set axis_col {1 1 1}
+    set node_col {0.8 0.8 0.8}
+    set text_col {1 1 1}
+} elseif {$theme == "dark"} {
+    set bg_col {0 0 0}
+    set axis_col {1 1 1}
+    set node_col {0.8 0.8 0.8}
+    set text_col {1 1 1}
+    greyscale_map
+} elseif {$theme == "light"} {
+    set bg_col {1 1 1}
+    set axis_col {0 0 0}
+    set node_col {0.2 0.2 0.2}
+    set text_col {0 0 0}
+    greyscale_map
+} else {
+    # default is "color"
+    set bg_col {.1 .2 .4}
+    set axis_col {1 1 1}
+    set node_col {0.0 0.79 0.34}
+    set text_col {1 1 1}
+}
 
 # These are just defaults which will be overwritten when calling reload_data
 # below.
@@ -94,7 +136,7 @@ proc reload_data {reset} {
 # Annotate the nodes with the given text labels.
 set captions {}
 proc captions {labels} {
-    global captions
+    global captions text_col
     set n [llength $captions]
     set m [llength $labels]
     if {$m > $n} {
@@ -110,6 +152,7 @@ proc captions {labels} {
 	    [$c GetTextActor] SetTextScaleModeToNone
 	    set tprop [$c GetCaptionTextProperty]
 	    $tprop ShadowOff
+	    $tprop SetColor {*}$text_col
 #	    $tprop SetFontSize 12
 	    ren1 AddActor2D $c
 	    lappend captions $c
@@ -160,7 +203,7 @@ vtkPolyDataMapper glyph_mapper
     glyph_mapper SetInputConnection [glyph GetOutputPort]
 vtkActor node_glyphs
     node_glyphs SetMapper glyph_mapper
-    [node_glyphs GetProperty] SetColor 0.0 0.79 0.34
+    [node_glyphs GetProperty] SetColor {*}$node_col
 
 # Automatic node labels. FIXME: Apparently VTK supports only the rendering of
 # data in a direct fashion, so we do general text labels as captions, see
@@ -182,9 +225,14 @@ vtkLabeledDataMapper edge_label_mapper
     edge_label_mapper SetInputConnection [cc GetOutputPort]
     edge_label_mapper SetLabelFormat "%5.4g"
     edge_label_mapper SetLabelModeToLabelScalars
+    set txtprop [edge_label_mapper GetLabelTextProperty]
+    $txtprop ShadowOff
+    #$txtprop BoldOff
+    $txtprop SetColor {*}$text_col
     # Get rid of warnings about empty edge sets.
     edge_label_mapper GlobalWarningDisplayOff
 vtkActor2D edge_labels
+    set prop [edge_labels GetProperty]
     edge_labels SetMapper edge_label_mapper    
     edge_labels SetVisibility 0
 
@@ -198,11 +246,14 @@ vtkTextActor txt
     set txtprop [txt GetTextProperty]
     $txtprop BoldOn
     $txtprop SetFontSize 12
+    $txtprop SetColor {*}$text_col
     txt SetVisibility 0
 
 # Create the color legend for the edge weights.
 vtkScalarBarActor scalarBar
     scalarBar SetLookupTable [graph_mapper GetLookupTable]
+    set txtprop [scalarBar GetLabelTextProperty]
+    $txtprop SetColor {*}$text_col
     # configure position, orientation and size
     [scalarBar GetPositionCoordinate] \
                      SetCoordinateSystemToNormalizedViewport
@@ -227,13 +278,13 @@ vtkRenderer ren1
   ren1 AddActor edge_labels
   ren1 AddActor txt
   ren1 AddActor scalarBar
-  ren1 SetBackground .1 .2 .4
+  ren1 SetBackground {*}$bg_col
 vtkRenderWindow renWin
   renWin AddRenderer ren1
 
 # Text property for axes titles and labels.
 vtkTextProperty tprop
-    tprop SetColor 1 1 1
+    tprop SetColor {*}$axis_col
     tprop ShadowOn
 
 # Create the axes (initially invisible).

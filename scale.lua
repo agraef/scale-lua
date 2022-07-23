@@ -1966,15 +1966,37 @@ end
 
 --[[ The main program: execute the Tcl script and enter the main loop. ]]
 
+usage = [[Usage: %s [-g] [-t theme] [scale]
+-g: show graph in separate window
+-t: pick a color theme for the graph view (color, light, dark, and black)
+scale: name of Scala (.scl) file to be loaded
+]]
+
 function main()
    tk.eval("wm withdraw .")
    tk.set("about_text", about_text)
    prog = arg[0] and arg[0] or "scale"
-   if #arg > 0 and arg[1] == "-g" then
-      -- show graph in a separate window
-      tk.eval(string.format("set GRAPHWIN %d", 1))
-      table.remove(arg, 1)
-   end
+   repeat
+      if #arg > 0 and arg[1] == "-g" then
+	 -- show graph in a separate window
+	 tk.eval(string.format("set GRAPHWIN %d", 1))
+	 table.remove(arg, 1)
+      elseif #arg > 1 and arg[1] == "-t" then
+	 -- The color theme for the graph view is in the next arg. At present
+	 -- there is a hardcoded set of four themes available, "color" (the
+	 -- default), "light", "dark", or "black". The "light" and "dark"
+	 -- themes are strictly greyscale, while "black" combines the "dark"
+	 -- theme with colored edges.
+	 tk.eval(string.format("set theme %s", arg[2]))
+	 table.remove(arg, 1)
+	 table.remove(arg, 1)
+      elseif #arg > 0 and arg[1]:sub(1,1) == "-" then
+	 print(string.format(usage, prog))
+	 return
+      else
+	 break
+      end
+   until false
    fname = arg[1] and arg[1] or ""
    tk.set("argv0", prog)
    -- load the GUI
