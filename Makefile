@@ -48,6 +48,18 @@ install:
 uninstall:
 	rm -rf "$(DESTDIR)$(bindir)/scale" "$(DESTDIR)$(datadir)"
 
+# This program needs inspect.lua. You can either install it using luarocks, or
+# use the following target to install it manually. It is checked that the
+# module is not installed already.
+moddir = $(shell pkg-config --variable INSTALL_LMOD lua)
+install-inspect:
+	@if lua -e 'require("inspect")' 2>/dev/null; then echo "It appears that the inspect.lua module is already installed"; else wget -q "https://raw.githubusercontent.com/kikito/inspect.lua/master/inspect.lua" && echo "Installing inspect.lua in $(moddir)" && mkdir -p "$(moddir)" && cp inspect.lua "$(moddir)"; rm -f inspect.lua; fi
+# Be careful with the uninstall target, since it will also remove the module
+# if it was installed with luarocks! The proper way to remove a package
+# installed with luarocks is `sudo luarocks remove`.
+uninstall-inspect:
+	rm -f "$(moddir)/inspect.lua"
+
 dist:
 	rm -rf $(dist)
 	mkdir $(dist) && mkdir $(dist)/lib && mkdir $(dist)/scl
