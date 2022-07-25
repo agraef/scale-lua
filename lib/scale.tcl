@@ -300,6 +300,8 @@ if {$vtkversion >= 6} {
     axes SetFontFactor 0.8
     axes SetAxisTitleTextProperty tprop
     axes SetAxisLabelTextProperty tprop
+    # XXXFIXME: How to change the color of the axes here? This doesn't work:
+    #[[axes GetXAxisActor2D] GetProperty] SetColor {*}$axis_col
     axes SetVisibility 0
 
 # Add to the renderer.
