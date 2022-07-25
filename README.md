@@ -44,7 +44,7 @@ The GPL can also be read online at <http://www.gnu.org/licenses/>.
 
 The scale program uses various 3rd party software for its GUI and numerical algorithms. You'll need:
 
--   [Lua](https://www.lua.org/)
+-   [Lua](https://www.lua.org/) and [inspect](https://github.com/kikito/inspect.lua)
 -   [Octave](https://www.octave.org/)
 -   [Tcl/Tk](https://www.tcl.tk/) and [Gnocl](https://dr-baum.net/gnocl/)
 -   [VTK](https://www.vtk.org/)
@@ -54,6 +54,8 @@ Except for VTK, you'll need fairly recent versions of all these. Lua 5.4, Octave
 Since ready-made packages for Gnocl and VTK 6.3 can be hard to find these days, I provide packages for Arch ([Gnocl](https://aur.archlinux.org/packages?O=0&K=gnocl), [VTK](https://aur.archlinux.org/packages/vtk6-legacy)) in the AUR (Arch User Repositories), and packages for Debian and Ubuntu ([Gnocl](https://build.opensuse.org/project/show/home:aggraef:gnocl), [VTK](https://build.opensuse.org/project/show/home:aggraef:vtk6)) at the OBS (Open Build Service).
 
 The program also requires Lua bindings to Tcl/Tk and Octave to work. Since I couldn't find anything suitable in the archives, I ported over the corresponding Pure modules. You can find these as [lua-tk](https://github.com/agraef/lua-tk) and [lua-octave](https://github.com/agraef/lua-octave) on GitHub. They can be installed as a [luarocks](https://luarocks.org/) module, or with `make && sudo make install`. Please check the README files on GitHub for details.
+
+Finally, you'll need [inspect](https://github.com/kikito/inspect.lua). This is a popular 3rd-party module for pretty-printing arbitrary Lua data. If you don't have this installed, you can either get it using luarocks, or download it here: [inspect.lua](https://raw.githubusercontent.com/kikito/inspect.lua/master/inspect.lua). You can also run `sudo make install-inspect` to have this done automatically; it will check whether the module is installed already, and copy the module to the proper directory on Lua's package path if needed.
 
 Currently the program is only known to work on Linux. Porting to other platforms won't be a piece of cake, but is certainly doable. Ready-made binaries for Lua, Tcl/Tk, VTK, and Octave exist on a variety of platforms, but getting these to work together nicely might be a challenge on some systems like Mac and Windows. (At the very least, you'll have to port lua-tk and lua-octave, and get hold of suitable builds of Gnocl and VTK for your platform.) If you do, please let us know.
 
