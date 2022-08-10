@@ -9,7 +9,7 @@ prefix = /usr/local
 bindir = $(prefix)/bin
 datadir = $(prefix)/share/scale
 
-DISTFILES = COPYING Makefile README.md scale.html scale.pdf scale.png \
+DISTFILES = COPYING Makefile README.md scale.html scale.png \
 scale.lua lib/* scl/*.scl
 
 all:
@@ -18,10 +18,6 @@ clean:
 	rm -f scale *~
 
 # documentation (this needs pandoc)
-
-# I don't actually use this, instead I render the document using Typora with
-# its Github theme; this looks much nicer. But this gives you a quick way to
-# regenerate the documentation after changes if you have pandoc installed.
 
 PDF_FLAGS = -V "geometry:paperwidth=21cm" -V "geometry:paperheight=29.7cm" \
 -V "geometry:vmargin=2cm" -V "geometry:hmargin=2cm" -V "fontsize:12pt"
