@@ -1,6 +1,3 @@
----
-title: Scale - Visualizing and Rationalizing Musical Scales
----
 
 # Scale - Visualizing and Rationalizing Musical Scales
 

@@ -30,11 +30,13 @@ PDF_FLAGS = -V "geometry:paperwidth=21cm" -V "geometry:paperheight=29.7cm" \
 #PDF_FLAGS += -V "mainfont:Arial"
 PDF_FLAGS += --pdf-engine=xelatex -V colorlinks=true
 
+HTML_FLAGS = --metadata pagetitle="Scale - Visualizing and Rationalizing Musical Scales" --self-contained --css=gh-pandoc.css
+
 html: scale.html
 pdf: scale.pdf
 
 scale.html: README.md
-	pandoc $< -o $@
+	pandoc $< -o $@ $(HTML_FLAGS)
 
 scale.pdf: README.md
 	pandoc $< -o $@ $(PDF_FLAGS)
